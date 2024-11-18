@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PeopleManager.Ui.Mvc.Models.Core;
+using PeopleManager.Ui.Mvc.Core;
 using PeopleManager.Ui.Mvc.Models;
 
 namespace PeopleManager.Ui.Mvc.Controllers
@@ -18,7 +18,6 @@ namespace PeopleManager.Ui.Mvc.Controllers
         public IActionResult Index()
         {
             var people = _peopleManagerDbContext.People.ToList();
-
             return View(people);
         }
 
@@ -29,7 +28,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]  // => [HttpPost, ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Person person)
         {
             _peopleManagerDbContext.People.Add(person);
@@ -41,7 +40,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
         public IActionResult Edit([FromRoute] int id)
         {
             var person = _peopleManagerDbContext.People.FirstOrDefault(p => p.Id == id);
-            if (person == null)
+            if (person is null)
             {
                 return RedirectToAction("Index");
             }
@@ -49,11 +48,11 @@ namespace PeopleManager.Ui.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]  // => [HttpPost, ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit([FromRoute] int id, [FromForm] Person person)
         {
             var dbPerson = _peopleManagerDbContext.People.FirstOrDefault(p => p.Id == id);
-            if (dbPerson == null)
+            if (dbPerson is null)
             {
                 return RedirectToAction("Index");
             }
@@ -61,7 +60,34 @@ namespace PeopleManager.Ui.Mvc.Controllers
             dbPerson.LastName = person.LastName;
             dbPerson.Email = person.Email;
             _peopleManagerDbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
+        [HttpGet]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var person = _peopleManagerDbContext.People.FirstOrDefault(p => p.Id == id);
+            if (person is null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(person);
+        }
+
+        [HttpPost]
+        [Route("People/Delete/{id}")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed([FromRoute] int id)
+        {
+            var person = new Person
+            {
+                Id = id,
+                FirstName = string.Empty,
+                LastName = string.Empty
+            };
+            _peopleManagerDbContext.People.Attach(person);
+            _peopleManagerDbContext.People.Remove(person);
+            _peopleManagerDbContext.SaveChanges();
             return RedirectToAction("Index");
         }
     }

@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Ui.Mvc.Models;
 using System.Diagnostics;
-using PeopleManager.Ui.Mvc.Models.Core;
+using PeopleManager.Ui.Mvc.Core;
 
 namespace PeopleManager.Ui.Mvc.Controllers
 {
     public class HomeController : Controller
     {
         private readonly PeopleManagerDbContext _peopleManagerDbContext;
-        
+
         public HomeController(PeopleManagerDbContext peopleManagerDbContext)
         {
             _peopleManagerDbContext = peopleManagerDbContext;
