@@ -1,8 +1,8 @@
 ﻿using PeopleManager.Ui.Mvc.Models;
 
-namespace PeopleManager.Ui.Mvc.Core
+namespace PeopleManager.Ui.Mvc.Models.Core
 {
-    public class Database
+    public class PeopleManagerDbContext
     {
         public IList<Person> People { get; set; } = new List<Person>();
 
