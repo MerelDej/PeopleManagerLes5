@@ -31,13 +31,33 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete this person?</p>
+                    <p>Are you sure you want to delete <span id="firstNameValue"></span> <span id="lastNameValue"></span> <span id="emailValue"></span>?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-primary">Yes</button>
+                    <form asp-action="DeleteConfirmed" method="post">
+                        <input type="hidden" name="Id"/>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-primary">Yes</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+}
+
+@section Scripts
+{
+    <script>
+        $("button[data-mode='delete']").on("click", function(){  // Zoek alle delete buttons en zet daar een klik event op met als functie....
+            let id = $(this).data("id");  // "$()" is een J-query
+            let firstname = $(this).data("firstName")
+            let lastname = $(this).data("name")
+            let email = $(this).data("email")
+            $("input[name='Id']", "#deleteModal").val(id);  // val = value
+            $("#firstNameValue").html(firstName)
+            $("#lastNameValue").html(lastName)
+            $("#emailValue").html(email)
+
+        });
+    </script>
 }

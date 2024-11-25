@@ -8,6 +8,6 @@
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
         <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a> <!-- verwijst naar pagina -->
         
-        <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger">Delete (modal)</button> <!-- modal popup op pagina zelf (geen andere pagina) -->
+        <button type="button" data-id="@Model.Id" data-mode="delete" data-firstName="@Model.FirstName" data-lastName="@Model.LastName" data-email="@Model.Email"  data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger">Delete (modal)</button> <!-- modal popup op pagina zelf (geen andere pagina) -->
     </td>
 </tr>

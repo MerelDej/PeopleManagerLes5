@@ -75,9 +75,9 @@ namespace PeopleManager.Ui.Mvc.Controllers
         }
 
         [HttpPost]
-        [Route("People/Delete/{id:int}")]
+        [Route("People/Delete/{id:int?}")] // er is niet altijd een id
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed([FromRoute] int id)
+        public IActionResult DeleteConfirmed(int id) // kan via [FromForm] en [FromRoute] maar er mag maar 1 dus zetten we geeneen
         {
             var person = new Person
             {
