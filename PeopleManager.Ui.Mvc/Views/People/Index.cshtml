@@ -50,12 +50,12 @@
     <script>
         $("button[data-mode='delete']").on("click", function(){  // Zoek alle delete buttons en zet daar een klik event op met als functie....
             let id = $(this).data("id");  // "$()" is een J-query
-            let firstname = $(this).data("firstName")
-            let lastname = $(this).data("name")
+            let firstName = $(this).data("firstName")
+            let name = $(this).data("name")
             let email = $(this).data("email")
             $("input[name='Id']", "#deleteModal").val(id);  // val = value
             $("#firstNameValue").html(firstName)
-            $("#lastNameValue").html(lastName)
+            $("#lastNameValue").html(name)
             $("#emailValue").html(email)
 
         });
