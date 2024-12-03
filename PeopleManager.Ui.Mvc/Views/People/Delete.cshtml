@@ -8,7 +8,7 @@
 
 <p>Are you sure you want to delete @Model.FirstName @Model.LastName @Model.Email ?</p>
 
-<form method="post" asp-action="DeleteConfirmed" asp-route="@Model.Id">
+<form method="post">
     <a asp-action="Index" class="btn btn-secondary">No</a>
     <button type="submit" class="btn btn-danger">Yes</button>
 </form>

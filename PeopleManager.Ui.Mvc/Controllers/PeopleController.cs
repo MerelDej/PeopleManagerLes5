@@ -31,6 +31,10 @@ namespace PeopleManager.Ui.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Person person)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(person);
+            }
             _peopleManagerDbContext.People.Add(person);
             _peopleManagerDbContext.SaveChanges();
             return RedirectToAction("Index");
@@ -44,6 +48,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
             {
                 return RedirectToAction("Index");
             }
+
             return View(person);
         }
 
@@ -51,6 +56,10 @@ namespace PeopleManager.Ui.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit([FromRoute] int id, [FromForm] Person person)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(person);
+            }
             var dbPerson = _peopleManagerDbContext.People.FirstOrDefault(p => p.Id == id);
             if (dbPerson is null)
             {
